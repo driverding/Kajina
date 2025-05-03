@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page
+    x:Class="Kajina.LearnHiraganaPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Kajina"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="64,32,64,32">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Hiragana" />
+            <Grid
+                x:Name="Grid"
+                Margin="0,24,0,0"
+                HorizontalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <local:KanaButton
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Kana="あ"
+                    Romaji="a"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Kana="い"
+                    Romaji="i"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Kana="う"
+                    Romaji="u"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Kana="え"
+                    Romaji="e"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Kana="お"
+                    Romaji="o"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Kana="か"
+                    Romaji="ka"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Kana="き"
+                    Romaji="ki"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Kana="く"
+                    Romaji="ku"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Kana="け"
+                    Romaji="ke"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    Kana="こ"
+                    Romaji="ko"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Kana="が"
+                    Romaji="ga"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Kana="ぎ"
+                    Romaji="gi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Kana="ぐ"
+                    Romaji="gu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Kana="げ"
+                    Romaji="ge"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Kana="ご"
+                    Romaji="go"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Kana="さ"
+                    Romaji="sa"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Kana="し"
+                    Romaji="shi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Kana="す"
+                    Romaji="su"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Kana="せ"
+                    Romaji="se"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    Kana="そ"
+                    Romaji="so"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Kana="ざ"
+                    Romaji="za"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Kana="じ"
+                    Romaji="ji"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Kana="ず"
+                    Romaji="zu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="4"
+                    Grid.Column="3"
+                    Kana="ぜ"
+                    Romaji="ze"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="4"
+                    Grid.Column="4"
+                    Kana="ぞ"
+                    Romaji="zo"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Kana="た"
+                    Romaji="ta"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Kana="ち"
+                    Romaji="chi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="5"
+                    Grid.Column="2"
+                    Kana="つ"
+                    Romaji="tsu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="5"
+                    Grid.Column="3"
+                    Kana="て"
+                    Romaji="te"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="5"
+                    Grid.Column="4"
+                    Kana="と"
+                    Romaji="to"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Kana="だ"
+                    Romaji="da"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Kana="ぢ"
+                    Romaji="ji"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="6"
+                    Grid.Column="2"
+                    Kana="づ"
+                    Romaji="zu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="6"
+                    Grid.Column="3"
+                    Kana="で"
+                    Romaji="de"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="6"
+                    Grid.Column="4"
+                    Kana="ど"
+                    Romaji="do"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Kana="な"
+                    Romaji="na"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Kana="に"
+                    Romaji="ni"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="7"
+                    Grid.Column="2"
+                    Kana="ぬ"
+                    Romaji="nu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="7"
+                    Grid.Column="3"
+                    Kana="ね"
+                    Romaji="ne"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="7"
+                    Grid.Column="4"
+                    Kana="の"
+                    Romaji="no"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Kana="は"
+                    Romaji="ha"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Kana="ひ"
+                    Romaji="hi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="8"
+                    Grid.Column="2"
+                    Kana="ふ"
+                    Romaji="fu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="8"
+                    Grid.Column="3"
+                    Kana="へ"
+                    Romaji="he"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="8"
+                    Grid.Column="4"
+                    Kana="ほ"
+                    Romaji="ho"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Kana="ば"
+                    Romaji="ba"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Kana="び"
+                    Romaji="bi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="9"
+                    Grid.Column="2"
+                    Kana="ぶ"
+                    Romaji="bu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="9"
+                    Grid.Column="3"
+                    Kana="べ"
+                    Romaji="be"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="9"
+                    Grid.Column="4"
+                    Kana="ぼ"
+                    Romaji="bo"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="10"
+                    Grid.Column="0"
+                    Kana="ぱ"
+                    Romaji="pa"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="10"
+                    Grid.Column="1"
+                    Kana="ぴ"
+                    Romaji="pi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="10"
+                    Grid.Column="2"
+                    Kana="ぷ"
+                    Romaji="pu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="10"
+                    Grid.Column="3"
+                    Kana="ぺ"
+                    Romaji="pe"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="10"
+                    Grid.Column="4"
+                    Kana="ぽ"
+                    Romaji="po"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="11"
+                    Grid.Column="0"
+                    Kana="ま"
+                    Romaji="ma"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    Kana="み"
+                    Romaji="mi"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="11"
+                    Grid.Column="2"
+                    Kana="む"
+                    Romaji="mu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="11"
+                    Grid.Column="3"
+                    Kana="め"
+                    Romaji="me"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="11"
+                    Grid.Column="4"
+                    Kana="も"
+                    Romaji="mo"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="12"
+                    Grid.Column="0"
+                    Kana="や"
+                    Romaji="ya"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="12"
+                    Grid.Column="2"
+                    Kana="ゆ"
+                    Romaji="yu"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="12"
+                    Grid.Column="4"
+                    Kana="よ"
+                    Romaji="yo"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="13"
+                    Grid.Column="0"
+                    Kana="ら"
+                    Romaji="ra"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="13"
+                    Grid.Column="1"
+                    Kana="り"
+                    Romaji="ri"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="13"
+                    Grid.Column="2"
+                    Kana="る"
+                    Romaji="ru"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="13"
+                    Grid.Column="3"
+                    Kana="れ"
+                    Romaji="re"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="13"
+                    Grid.Column="4"
+                    Kana="ろ"
+                    Romaji="ro"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="14"
+                    Grid.Column="0"
+                    Kana="わ"
+                    Romaji="wa"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="14"
+                    Grid.Column="1"
+                    Kana="ゐ"
+                    Romaji="wi"
+                    Visibility="{x:Bind ExtraVisibility}" />
+                <local:KanaButton
+                    Grid.Row="14"
+                    Grid.Column="3"
+                    Kana="ゑ"
+                    Romaji="we"
+                    Visibility="{x:Bind ExtraVisibility}" />
+                <local:KanaButton
+                    Grid.Row="14"
+                    Grid.Column="4"
+                    Kana="を"
+                    Romaji="wo"
+                    Visibility="Visible" />
+                <local:KanaButton
+                    Grid.Row="15"
+                    Grid.Column="2"
+                    Kana="ゔ"
+                    Romaji="vu"
+                    Visibility="{x:Bind ExtraVisibility}" />
+                <local:KanaButton
+                    Grid.Row="15"
+                    Grid.Column="4"
+                    Kana="ん"
+                    Romaji="n"
+                    Visibility="Visible" />
+
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Kajina (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Kajina (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="Kajina.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:Kajina"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Kajina"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop Kind="Base" />
+    </Window.SystemBackdrop>
+
+    <Grid>
+        <StackPanel
+            x:Name="AppTitleBar"
+            Height="48"
+            VerticalAlignment="Top"
+            Orientation="Horizontal">
+            <Image
+                Width="16"
+                Height="16"
+                Margin="64,0,0,0"
+                Source="ms-appx:///Assets/Square44x44Logo.png" />
+            <TextBlock
+                Margin="12,0,0,0"
+                VerticalAlignment="Center"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="Kajina" />
+        </StackPanel>
+
+        <NavigationView
+            IsPaneOpen="True"
+            OpenPaneLength="200"
+            PaneDisplayMode="Left"
+            SelectionChanged="NavigationView_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem
+                    Content="Read"
+                    IsExpanded="True"
+                    SelectsOnInvoked="False">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE7C3;" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="Hiragana" Tag="ReadHiraganaPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE986;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Katakana" Tag="ReadKatakanaPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE987;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Kanji" Tag="ReadKanjiPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE982;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItem
+                    Content="Write"
+                    IsExpanded="True"
+                    SelectsOnInvoked="False">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE929;" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="Hiragana" Tag="WriteHiraganaPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE986;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Katakana" Tag="WriteKatakanaPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE987;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+                <NavigationViewItem
+                    Content="Learn"
+                    IsExpanded="True"
+                    SelectsOnInvoked="False">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE82D;" />
+                    </NavigationViewItem.Icon>
+                    <NavigationViewItem.MenuItems>
+                        <NavigationViewItem Content="Hiragana" Tag="LearnHiraganaPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE986;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Katakana" Tag="LearnKatakanaPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE987;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Kanji" Tag="LearnKanjiPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE982;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+            <Frame x:Name="ContentFrame" Margin="0,48,0,0" />
+        </NavigationView>
+    </Grid>
+</Window>
