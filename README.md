@@ -1,6 +1,6 @@
 # Kajina
 
-Learn Japaese with WinUI! 
+Learn Japanese with WinUI3! 
 
 ## Functions
 
@@ -12,9 +12,13 @@ Learn Japaese with WinUI!
 
 - Option to enable abandoned Kanas like "ゐ" and "ヱ"
 
+- Practice the pronouncation of simple Kanji words.
+
 ## TODO
 
-- Practice the pronouncation of simple Kanji words.
+- Fix Loading Kanji Latency bug
+
+- Implement optional (suru) of kanji verb
 
 - Import your own Kanji word list
 

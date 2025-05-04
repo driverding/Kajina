@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Kajina"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
@@ -15,9 +16,43 @@
 
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Settings" />
 
-            <controls:SettingsCard Header="Enable extra kanas">
+            <TextBlock
+                Margin="0,16,0,16"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Kana" />
 
-                <ToggleSwitch IsOn="{x:Bind ViewModel.ExtraEnabled, Mode=TwoWay}" />
+            <controls:SettingsCard Header="Enable extra kanas">
+                <ToggleSwitch IsOn="{x:Bind viewModel.ExtraEnabled, Mode=TwoWay}" />
+            </controls:SettingsCard>
+
+
+            <TextBlock
+                Margin="0,16,0,16"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Kanji" />
+
+            <controls:SettingsCard Header="WordList">
+                <ComboBox
+                    x:Name="KanjiWordListComboBox"
+                    ItemsSource="{x:Bind viewModel.KanjiWordListItemsSource}"
+                    Loaded="KanjiWordListComboBox_Loaded"
+                    SelectionChanged="KanjiWordListComboBox_SelectionChanged" />
+            </controls:SettingsCard>
+
+            <controls:SettingsCard Header="Number of words in one group">
+                <ComboBox
+                    x:Name="KanjiWordPerGroupComboBox"
+                    ItemsSource="{x:Bind viewModel.KanjiWordPerGroupItemsSource}"
+                    Loaded="KanjiWordPerGroupComboBox_Loaded"
+                    SelectionChanged="KanjiWordPerGroupComboBox_SelectionChanged" />
+            </controls:SettingsCard>
+
+            <controls:SettingsCard Header="Group">
+                <ComboBox
+                    x:Name="KanjiGroupComboBox"
+                    ItemsSource="{x:Bind viewModel.KanjiGroupItemsSource, Mode=OneWay}"
+                    Loaded="KanjiGroupComboBox_Loaded"
+                    SelectionChanged="KanjiGroupComboBox_SelectionChanged" />
             </controls:SettingsCard>
 
             <TextBlock

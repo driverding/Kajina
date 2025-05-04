@@ -60,6 +60,11 @@
                                 <FontIcon Glyph="&#xE982;" />
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
+                        <NavigationViewItem Content="Gairaigo" Tag="ReadGairaigoPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE97E;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
                     </NavigationViewItem.MenuItems>
                 </NavigationViewItem>
                 <NavigationViewItem
@@ -78,6 +83,11 @@
                         <NavigationViewItem Content="Katakana" Tag="WriteKatakanaPage">
                             <NavigationViewItem.Icon>
                                 <FontIcon Glyph="&#xE987;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Gairaigo" Tag="WriteGairaigoPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE97E;" />
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
                     </NavigationViewItem.MenuItems>
@@ -103,6 +113,11 @@
                         <NavigationViewItem Content="Kanji" Tag="LearnKanjiPage">
                             <NavigationViewItem.Icon>
                                 <FontIcon Glyph="&#xE982;" />
+                            </NavigationViewItem.Icon>
+                        </NavigationViewItem>
+                        <NavigationViewItem Content="Gairaigo" Tag="LearnGairaigoPage">
+                            <NavigationViewItem.Icon>
+                                <FontIcon Glyph="&#xE97E;" />
                             </NavigationViewItem.Icon>
                         </NavigationViewItem>
                     </NavigationViewItem.MenuItems>

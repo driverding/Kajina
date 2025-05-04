@@ -25,6 +25,18 @@ namespace Kajina
             {
                 localSettings.Values["ExtraEnabled"] = false;
             }
+            if (!localSettings.Values.ContainsKey("KanjiWordList"))
+            {
+                localSettings.Values["KanjiWordList"] = Data.builtinWordLists[0];
+            }
+            if (!localSettings.Values.ContainsKey("KanjiWordPerGroup"))
+            {
+                localSettings.Values["KanjiWordPerGroup"] = 20;
+            }
+            if (!localSettings.Values.ContainsKey("KanjiGroup"))
+            {
+                localSettings.Values["KanjiGroup"] = 1;
+            }
         }
 
         private Window? m_window;

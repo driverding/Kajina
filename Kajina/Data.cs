@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.Storage;
 
 namespace Kajina
@@ -9,8 +10,8 @@ namespace Kajina
 
     public static class Data
     {
-        private static readonly (string, string)[] hiragana =
-        {
+        public static readonly List<(string, string)> hiragana =
+        [
             ( "あ", "a" ), ( "い", "i" ), ( "う", "u" ), ( "え", "e" ), ( "お", "o" ),
             ( "か", "ka" ), ( "き", "ki" ), ( "く", "ku" ), ( "け", "ke" ), ( "こ", "ko" ),
             ( "が", "ga" ), ( "ぎ", "gi" ), ( "ぐ", "gu" ), ( "げ", "ge" ), ( "ご", "go" ),
@@ -27,15 +28,15 @@ namespace Kajina
             ( "ら", "ra" ), ( "り", "ri" ), ( "る", "ru" ), ( "れ", "re" ), ( "ろ","ro" ),
             ( "わ", "wa" ), ( "を","wo"  ),
             ( "ん", "n" )
-        };
+        ];
 
-        private static readonly (string, string)[] hiraganaExtra =
-        {
+        public static readonly List<(string, string)> hiraganaExtra =
+        [
             ( "ゐ", "wi" ), ( "ゑ", "we" ), ( "ゔ", "vu" ),
-        };
+        ];
 
-        private static readonly (string, string)[] katakana =
-        {
+        public static readonly List<(string, string)> katakana =
+        [
             ( "ア", "a" ), ( "イ", "i" ), ( "ウ", "u" ), ( "エ", "e" ), ( "オ", "o" ),
             ( "カ", "ka" ), ( "キ", "ki" ), ( "ク", "ku" ), ( "ケ", "ke" ), ( "コ", "ko" ),
             ( "ガ", "ga" ), ( "ギ", "gi" ), ( "グ", "gu" ), ( "ゲ", "ge" ), ( "ゴ", "go" ),
@@ -52,24 +53,60 @@ namespace Kajina
             ( "ラ", "ra" ), ( "リ", "ri" ), ( "ル", "ru" ), ( "レ", "re" ), ( "ロ", "ro" ),
             ( "ワ", "wa" ), ( "ヲ", "wo" ),
             ( "ン", "n" ),
-        };
+        ];
 
-        private static readonly (string, string)[] katakanaExtra =
-        {
+        public static readonly List<(string, string)> katakanaExtra =
+        [
             ( "ヰ", "wi" ), ( "ヱ", "we" ), ( "ヴ", "vu" ),
+        ];
+
+        public static readonly string[] builtinWordLists =
+        {
+            "n4-kanji", "n5-kanji"
         };
 
 
-        private static (string, string)[]? kanji;
+        public static List<(string, string)> kanji = [];
+        public static List<(string, string, string)> kanjiWithKana = [];
 
-        public static void Refresh()
+        static Data()
         {
-            // Get Kanji, Probability
+            LoadAccuracy();
+            LoadKanji();
+        }
+
+        private static void LoadAccuracy()
+        {
+
+        }
+
+        public static async void LoadKanji()
+        {
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            string filename = (string)localSettings.Values["KanjiWordList"] + ".csv";
+            int wordPerGroup = (int)localSettings.Values["KanjiWordPerGroup"];
+            int group = (int)localSettings.Values["KanjiGroup"];
+
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{filename}"));
+            var lines = await FileIO.ReadLinesAsync(file);
+
+            kanji.Clear();
+            kanjiWithKana.Clear();
+
+            var chosenLines = lines.Skip((group - 1) * wordPerGroup + 1).Take(wordPerGroup);
+
+            foreach ( var line in chosenLines )
+            {
+                var word = line.Split(',');
+                kanji.Add((word[0], word[2]));
+                kanjiWithKana.Add((word[0], word[1], word[2]));
+            }
         }
 
         public static List<(string, string)> PickRandom(Mode mode, bool extraEnable, int quantity)
         {
-            List<(string, string)[]> candidates = [];
+            List<List<(string, string)>> candidates = [];
             List<(string, string)> result = [];
 
             if (mode == Mode.Hiragana)
@@ -90,7 +127,7 @@ namespace Kajina
             int count = 0;
             foreach (var candidate in candidates)
             {
-                count += candidate.Length;
+                count += candidate.Count;
             }
 
             Random random = new();
@@ -101,12 +138,12 @@ namespace Kajina
 
                 foreach (var candidate in candidates)
                 {
-                    if (index < candidate.Length)
+                    if (index < candidate.Count)
                     {
                         if (result.Contains(candidate[index])) continue;
                         result.Add(candidate[index]);
                     }
-                    index -= candidate.Length;
+                    index -= candidate.Count;
                 }
             }
 
