@@ -30,15 +30,9 @@ namespace Kajina
             this.InitializeComponent();
         }
 
-        private double GetAccuracy(string kana)
-        {
-            // TODO!
-            return 1.0;
-        }
-
         private void Button_Loaded(object sender, RoutedEventArgs e)
         {
-            double accuracy = GetAccuracy(this.Kana);
+            double accuracy = Data.GetAccuracy(this.Kana);
             var brush = accuracy switch
             {
                 < 0.5 => (Brush)Application.Current.Resources["SystemFillColorCriticalBackgroundBrush"],

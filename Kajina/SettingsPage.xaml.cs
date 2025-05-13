@@ -3,6 +3,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
@@ -32,12 +33,14 @@ namespace Kajina
             }
         }
 
-        public ObservableCollection<string> KanjiWordListItemsSource = [.. Data.builtinWordLists];
+        public ObservableCollection<int> LogLengthItemsSource = [10, 20, 30, 50, 100];
 
+        public ObservableCollection<string> KanjiWordListItemsSource = [.. Data.builtinKanjiLists];
 
         public ObservableCollection<int> KanjiWordPerGroupItemsSource = [ 10, 20, 30, 50 ];
 
-        private ObservableCollection<int> kanjiGroupItemsSource = [ 1 ];
+
+        private ObservableCollection<int> kanjiGroupItemsSource = [ ];
 
         public ObservableCollection<int> KanjiGroupItemsSource
         {
@@ -55,6 +58,8 @@ namespace Kajina
 
         public SettingsPageViewModel viewModel { get; set; } = new SettingsPageViewModel();
 
+        private bool pageLoaded = false;
+
         public SettingsPage()
         {
             this.InitializeComponent();
@@ -64,53 +69,61 @@ namespace Kajina
             VersionTextBlock.Text = versionString;
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            RefreshGroupNumber();
+            await RefreshGroupNumber();
+            KanjiGroupComboBox.SelectedIndex = (int)this.localSettings.Values["KanjiGroup"];
+            pageLoaded = true;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        private void LogLengthComboBox_Loading(FrameworkElement sender, object args)
         {
-            base.OnNavigatedFrom(e);
-            Data.LoadKanji();
+            (sender as ComboBox).SelectedItem = (int)this.localSettings.Values["LogLength"];
         }
 
-        private void KanjiWordListComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void LogLengthComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as ComboBox).SelectedItem == null) return;
+            this.localSettings.Values["LogLength"] = (sender as ComboBox).SelectedItem;
+        }
+
+        private void KanjiWordListComboBox_Loading(FrameworkElement sender, object args)
         {
             (sender as ComboBox).SelectedItem = (string)this.localSettings.Values["KanjiWordList"];
         }
 
         private void KanjiWordListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!pageLoaded) return;
             this.localSettings.Values["KanjiWordList"] = (sender as ComboBox).SelectedItem;
             RefreshGroupNumber();
-            KanjiGroupComboBox.SelectedItem = 1;
         }
 
-        private void KanjiWordPerGroupComboBox_Loaded(object sender, RoutedEventArgs e)
+        private void KanjiWordPerGroupComboBox_Loading(FrameworkElement sender, object args)
         {
             (sender as ComboBox).SelectedItem = this.localSettings.Values["KanjiWordPerGroup"];
         }
 
         private void KanjiWordPerGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!pageLoaded) return;
             this.localSettings.Values["KanjiWordPerGroup"] = (sender as ComboBox).SelectedItem;
             RefreshGroupNumber();
-            KanjiGroupComboBox.SelectedItem = 1;
-        }
-
-        private void KanjiGroupComboBox_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-            (sender as ComboBox).SelectedItem = this.localSettings.Values["KanjiGroup"];
         }
 
         private void KanjiGroupComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.localSettings.Values["KanjiGroup"] = (sender as ComboBox).SelectedItem;
+            if ((sender as ComboBox).SelectedItem == null) return;
+
+            int group = (int)(sender as ComboBox).SelectedItem;
+            this.localSettings.Values["KanjiGroup"] = group;
+            Data.RefreshKanji(group);
         }
 
-        public async void RefreshGroupNumber()
+        public async Task RefreshGroupNumber()
         {
+            int? originalSelection = (int?)KanjiGroupComboBox.SelectedItem;
+
             string filename = (string)this.localSettings.Values["KanjiWordList"] + ".csv";
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{filename}"));
             var lines = await FileIO.ReadLinesAsync(file);
@@ -126,7 +139,11 @@ namespace Kajina
                 viewModel.KanjiGroupItemsSource.Add(i);
             }
 
-            KanjiGroupComboBox.SelectedItem = 1;
+            if (originalSelection != null)
+            {
+                KanjiGroupComboBox.SelectedItem = 
+                    viewModel.KanjiGroupItemsSource.Contains((int)originalSelection) ? originalSelection : 1;
+            }
         }
     }
 }

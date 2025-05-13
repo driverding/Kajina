@@ -19,6 +19,19 @@
             <TextBlock
                 Margin="0,16,0,16"
                 Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="General" />
+
+            <controls:SettingsCard Header="Log Length">
+                <ComboBox
+                    x:Name="LogLengthComboBox"
+                    ItemsSource="{x:Bind viewModel.LogLengthItemsSource}"
+                    Loading="LogLengthComboBox_Loading"
+                    SelectionChanged="LogLengthComboBox_SelectionChanged" />
+            </controls:SettingsCard>
+
+            <TextBlock
+                Margin="0,16,0,16"
+                Style="{StaticResource SubtitleTextBlockStyle}"
                 Text="Kana" />
 
             <controls:SettingsCard Header="Enable extra kanas">
@@ -35,7 +48,7 @@
                 <ComboBox
                     x:Name="KanjiWordListComboBox"
                     ItemsSource="{x:Bind viewModel.KanjiWordListItemsSource}"
-                    Loaded="KanjiWordListComboBox_Loaded"
+                    Loading="KanjiWordListComboBox_Loading"
                     SelectionChanged="KanjiWordListComboBox_SelectionChanged" />
             </controls:SettingsCard>
 
@@ -43,7 +56,7 @@
                 <ComboBox
                     x:Name="KanjiWordPerGroupComboBox"
                     ItemsSource="{x:Bind viewModel.KanjiWordPerGroupItemsSource}"
-                    Loaded="KanjiWordPerGroupComboBox_Loaded"
+                    Loading="KanjiWordPerGroupComboBox_Loading"
                     SelectionChanged="KanjiWordPerGroupComboBox_SelectionChanged" />
             </controls:SettingsCard>
 
@@ -51,7 +64,6 @@
                 <ComboBox
                     x:Name="KanjiGroupComboBox"
                     ItemsSource="{x:Bind viewModel.KanjiGroupItemsSource, Mode=OneWay}"
-                    Loaded="KanjiGroupComboBox_Loaded"
                     SelectionChanged="KanjiGroupComboBox_SelectionChanged" />
             </controls:SettingsCard>
 

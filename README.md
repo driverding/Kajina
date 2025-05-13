@@ -23,3 +23,10 @@ Learn Japanese with WinUI3!
 - Import your own Kanji word list
 
 - History to measure your level
+
+## Thanks
+
+Word List modified from open-anki-jlpt-decks
+Romaji generated using pykakasi
+
+https://github.com/jamsinclair/open-anki-jlpt-decks

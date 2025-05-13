@@ -8,6 +8,7 @@ using Microsoft.UI;
 using Windows.Storage;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace Kajina
 {
@@ -71,7 +72,7 @@ namespace Kajina
 
         public ReadPageViewModel viewModel { get; set; }
         private State state = State.Graded;
-        private string answer = "";
+        private string solution = "";
         private readonly bool extraEnabled;
 
         private Mode mode;
@@ -118,7 +119,7 @@ namespace Kajina
             {
                 var question = Data.PickRandom(this.mode, this.extraEnabled, 1)[0];
                 viewModel.Title = question.Item1;
-                this.answer = question.Item2;
+                this.solution = question.Item2;
 
                 viewModel.Subtitle = "";
                 viewModel.SymbolVisibility = false;
@@ -129,22 +130,35 @@ namespace Kajina
             }
             else
             {
-                if (TextBox.Text == answer)
+                if (Check(TextBox.Text, solution))
                 {
                     viewModel.Symbol = "Accept";
+                    Data.AppendAccuracy(viewModel.Title, true);
                     MainGrid.Background = (Brush)Application.Current.Resources["SystemFillColorSuccessBackgroundBrush"];
                 }
                 else
                 {
                     viewModel.Symbol = "Cancel";
+                    Data.AppendAccuracy(viewModel.Title, false);
                     MainGrid.Background = (Brush)Application.Current.Resources["SystemFillColorCriticalBackgroundBrush"];
                 }
 
-                viewModel.Subtitle = answer;
+                
+                viewModel.Subtitle = solution;
                 viewModel.SymbolVisibility = true;
 
                 state = State.Graded;
             }
+        }
+
+        private bool Check(string answer, string solution)
+        {
+            if (!solution.Contains('(')) 
+                return answer == solution;
+            else 
+                return
+                    answer == Regex.Replace(solution, @"\([^)]*\)", "") ||
+                    answer == Regex.Replace(solution, @"[()]", "");
         }
     }
 }

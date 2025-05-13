@@ -20,6 +20,9 @@ namespace Kajina
 
         private void InitializeLocalSettings()
         {
+            Data.InitKanji();
+            Data.ReadConfig();
+
             var localSettings = ApplicationData.Current.LocalSettings;
             if (!localSettings.Values.ContainsKey("ExtraEnabled"))
             {
@@ -27,7 +30,7 @@ namespace Kajina
             }
             if (!localSettings.Values.ContainsKey("KanjiWordList"))
             {
-                localSettings.Values["KanjiWordList"] = Data.builtinWordLists[0];
+                localSettings.Values["KanjiWordList"] = Data.builtinKanjiLists[0];
             }
             if (!localSettings.Values.ContainsKey("KanjiWordPerGroup"))
             {
@@ -36,6 +39,10 @@ namespace Kajina
             if (!localSettings.Values.ContainsKey("KanjiGroup"))
             {
                 localSettings.Values["KanjiGroup"] = 1;
+            }
+            if (!localSettings.Values.ContainsKey("LogLength"))
+            {
+                localSettings.Values["LogLength"] = 50;
             }
         }
 

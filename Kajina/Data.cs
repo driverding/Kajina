@@ -1,7 +1,11 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Kajina
@@ -10,7 +14,7 @@ namespace Kajina
 
     public static class Data
     {
-        public static readonly List<(string, string)> hiragana =
+        private static readonly List<(string, string)> hiragana =
         [
             ( "あ", "a" ), ( "い", "i" ), ( "う", "u" ), ( "え", "e" ), ( "お", "o" ),
             ( "か", "ka" ), ( "き", "ki" ), ( "く", "ku" ), ( "け", "ke" ), ( "こ", "ko" ),
@@ -30,12 +34,12 @@ namespace Kajina
             ( "ん", "n" )
         ];
 
-        public static readonly List<(string, string)> hiraganaExtra =
+        private static readonly List<(string, string)> hiraganaExtra =
         [
             ( "ゐ", "wi" ), ( "ゑ", "we" ), ( "ゔ", "vu" ),
         ];
 
-        public static readonly List<(string, string)> katakana =
+        private static readonly List<(string, string)> katakana =
         [
             ( "ア", "a" ), ( "イ", "i" ), ( "ウ", "u" ), ( "エ", "e" ), ( "オ", "o" ),
             ( "カ", "ka" ), ( "キ", "ki" ), ( "ク", "ku" ), ( "ケ", "ke" ), ( "コ", "ko" ),
@@ -55,12 +59,12 @@ namespace Kajina
             ( "ン", "n" ),
         ];
 
-        public static readonly List<(string, string)> katakanaExtra =
+        private static readonly List<(string, string)> katakanaExtra =
         [
             ( "ヰ", "wi" ), ( "ヱ", "we" ), ( "ヴ", "vu" ),
         ];
 
-        public static readonly string[] builtinWordLists =
+        public static readonly string[] builtinKanjiLists =
         {
             "n4-kanji", "n5-kanji"
         };
@@ -69,24 +73,74 @@ namespace Kajina
         public static List<(string, string)> kanji = [];
         public static List<(string, string, string)> kanjiWithKana = [];
 
+
+        public static Dictionary<string, Queue<bool>> accuracy;
+        public static int logLength;
+
+        private const int maxLogLength = 100;
+
         static Data()
         {
-            LoadAccuracy();
-            LoadKanji();
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            logLength = (int)localSettings.Values["LogLength"];
         }
 
-        private static void LoadAccuracy()
+        public static void AppendAccuracy(string key, bool result)
         {
+            if (!accuracy.ContainsKey(key))
+            {
+                accuracy.Add(key, new Queue<bool>(Enumerable.Repeat(false, maxLogLength)));
+            }
+            else
+            {
+                accuracy[key].Dequeue();
+                accuracy[key].Enqueue(result);
+            }
 
+            WriteConfig(accuracy);
         }
 
-        public static async void LoadKanji()
+        private async static void WriteConfig(Dictionary<string, Queue<bool>> accuracy)
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile configFile = await localFolder.CreateFileAsync("log.json", CreationCollisionOption.OpenIfExists);
+
+            await FileIO.WriteTextAsync(configFile, JsonSerializer.Serialize(accuracy));
+        }
+
+        public async static Task ReadConfig()
+        {
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+            StorageFile? configFile = (StorageFile?) await localFolder.TryGetItemAsync("log.json");
+            if (configFile == null)
+            {
+                accuracy = new Dictionary<string, Queue<bool>>();
+            }
+            else
+            {
+                string content = await FileIO.ReadTextAsync(configFile);
+                accuracy = JsonSerializer.Deserialize<Dictionary<string, Queue<bool>>>(content);
+            }
+        }
+
+        public static float GetAccuracy(string key)
+        {
+            if (!accuracy.ContainsKey(key))
+                return 0.0f;
+            else
+            {
+                int correctCount = accuracy[key].Skip(maxLogLength - logLength).Count(item => item == true);
+                return (float)correctCount / (float)logLength;
+            }
+        }
+
+        public static async void InitKanji()
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            int group = (int)localSettings.Values["KanjiGroup"];
 
             string filename = (string)localSettings.Values["KanjiWordList"] + ".csv";
             int wordPerGroup = (int)localSettings.Values["KanjiWordPerGroup"];
-            int group = (int)localSettings.Values["KanjiGroup"];
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{filename}"));
             var lines = await FileIO.ReadLinesAsync(file);
@@ -96,7 +150,30 @@ namespace Kajina
 
             var chosenLines = lines.Skip((group - 1) * wordPerGroup + 1).Take(wordPerGroup);
 
-            foreach ( var line in chosenLines )
+            foreach (var line in chosenLines)
+            {
+                var word = line.Split(',');
+                kanji.Add((word[0], word[2]));
+                kanjiWithKana.Add((word[0], word[1], word[2]));
+            }
+        }
+
+        public static async void RefreshKanji(int group)
+        {
+            ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
+            string filename = (string)localSettings.Values["KanjiWordList"] + ".csv";
+            int wordPerGroup = (int)localSettings.Values["KanjiWordPerGroup"];
+
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///Assets/{filename}"));
+            var lines = await FileIO.ReadLinesAsync(file);
+
+            kanji.Clear();
+            kanjiWithKana.Clear();
+
+            var chosenLines = lines.Skip((group - 1) * wordPerGroup + 1).Take(wordPerGroup);
+
+            foreach (var line in chosenLines)
             {
                 var word = line.Split(',');
                 kanji.Add((word[0], word[2]));
@@ -142,6 +219,7 @@ namespace Kajina
                     {
                         if (result.Contains(candidate[index])) continue;
                         result.Add(candidate[index]);
+                        break;
                     }
                     index -= candidate.Count;
                 }
